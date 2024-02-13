@@ -30,7 +30,7 @@ void main(void)
     ADACQ = 1;
     ADPCH = 0;
     
-    init_uart();
+    // init_uart();
     
     while(1)
     {
