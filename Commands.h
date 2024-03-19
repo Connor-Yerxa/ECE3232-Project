@@ -1,11 +1,4 @@
 /*
- * File:   Commands.c
- * Author: cbyer
- *
- * Created on March 7, 2024, 7:21 PM
- */
-
-/*
  * COMMANDS:
  * PCLS_info():                             This updates  the PCLS info.
  * user_data():                             This updates the RC values.
@@ -256,13 +249,13 @@ void ore_type(unsigned char type)
 }
 
 
-void main(void) {
-    UART_init();
-    PCLS_info();
-    while(1)
-    {
-        user_data();
-        motor(1, joy_ly, 1, 1);
-    }
-    return;
-}
+//void main(void) {
+//    UART_init();
+//    PCLS_info();
+//    while(1)
+//    {
+//        user_data();
+//        motor(1, joy_ly, 1, 1);
+//    }
+//    return;
+//}
