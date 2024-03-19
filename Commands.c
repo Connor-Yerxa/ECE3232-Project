@@ -13,31 +13,46 @@
 #pragma config CSWEN = ON 
 #pragma config FCMEN = ON 
 
-char fault_check(unsigned char expected_command)
+volatile unsigned char tx_wait()
 {
-    volatile unsigned char x, y, z;
-    
-    while(!PIR3bits.RCIF){}
-    z = RCREG;
-    if(z == 0xFE)
+    volatile unsigned int count;
+    for (count=1000; count > 0; count--)
     {
-        while(!PIR3bits.RCIF){}
-        z = RCREG;
-        if(z == 0x19)
+        if (PIR3bits.TXIF)
         {
-            while(!PIR3bits.RCIF){}
-            z = RCREG;
-            if(z == 0x02)
-            {
-                while(!PIR3bits.RCIF){}
-                z = RCREG;
-                if(z == expected_command)
-                {
-                    
-                }
-            }
+            return 1;
         }
     }
+    return 0;
+}
+
+volatile unsigned char rx_wait()
+{
+    volatile unsigned int count;
+    for (count=1000; count > 0; count--)
+    {
+        if (PIR3bits.RCIF)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+volatile unsigned char UART_send(volatile unsigned char message[], unsigned char size)
+{
+    volatile unsigned char i;
+    
+    for (i=0; i < size; i++)
+    {
+        if(!tx_wait())
+        {
+            return 0;
+        }
+        TXREG = message[i];
+    }
+    
+    return 1;
 }
 
 void UART_init()
@@ -61,154 +76,129 @@ void UART_init()
 //PCLS Info
 volatile unsigned char teamID, playerID, shield_flag, repair_flag;
 volatile unsigned int health;
+void PCLS_info_send()
+{
+    while (!UART_send((volatile unsigned char []){0xFE, 0x19, 0x01, 0x04, 0x00, 0x00}, 6)) {}
+}
+
+volatile unsigned char PCLS_info_receive()
+{
+    volatile char s=12, j, r[12];
+    
+    for (j=0; j < s; j++)
+    {
+        if (rx_wait())
+        {
+            r[j] = RCREG;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    teamID = r[6];
+    playerID = r[7];
+    health = r[8];
+    health += r[9] << 8;
+    shield_flag = r[10];
+    repair_flag = r[11];
+    return 1;
+}
+
 void PCLS_info()
 {
-    while(!PIR3bits.TXIF){}
-    TXREG = 0xFE;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x19;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x01;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x04;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x00;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x00;
-
-    //Sync bits
-    while(!PIR3bits.RCIF){}
-    teamID = RCREG;
-    while(!PIR3bits.RCIF){}
-    teamID = RCREG;
-    while(!PIR3bits.RCIF){}
-    teamID = RCREG;
-    while(!PIR3bits.RCIF){}
-    teamID = RCREG;
-    while(!PIR3bits.RCIF){}
-    teamID = RCREG;
-    while(!PIR3bits.RCIF){}
-    teamID = RCREG;
-
-    //Info bits
-    while(!PIR3bits.RCIF){}
-    teamID = RCREG;
-    while(!PIR3bits.RCIF){}
-    playerID = RCREG;
-    while(!PIR3bits.RCIF){}
-    health = RCREG;
-    while(!PIR3bits.RCIF){}
-    health += RCREG << 8;
-    while(!PIR3bits.RCIF){}
-    shield_flag = RCREG;
-    while(!PIR3bits.RCIF){}
-    repair_flag = RCREG;
+    PCLS_info_send();
+    while(!PCLS_info_receive())
+    {
+        PCLS_info_send();
+    }
 }
+
+
 
 //User Data
 volatile unsigned int joy_rx, joy_ry, joy_ly, joy_lx;
 volatile unsigned int swA, swB, swC, swD, potA, potB;
+void user_data_send()
+{
+    while(!UART_send((volatile unsigned char []) {0xFE, 0x19, 0x01, 0x05, 0x00, 0x00}, 6)){}
+}
+
+volatile unsigned char user_data_receive()
+{
+    volatile char s=26, j, r[26];
+    
+    for (j=0; j < s; j++)
+    {
+        if (rx_wait())
+        {
+            r[j] = RCREG;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+        
+    joy_rx = r[6];
+    joy_rx += r[7] << 8;
+    joy_rx -= 1000;
+    joy_rx /= 10;
+    
+    joy_ry = r[8];
+    joy_ry += r[9] << 8;
+    joy_ry -= 1000;
+    joy_ry /= 10;
+
+    joy_ly = r[10];
+    joy_ly += r[11] << 8;
+    joy_ly -= 1000;
+    joy_ly /= 10;
+    
+    joy_lx = r[12];
+    joy_lx += r[13] << 8;
+    joy_lx -= 1000;
+    joy_lx /= 10;
+
+    swA = r[14];
+    swA += r[15] << 8;
+    swB = r[16];
+    swB += r[17] << 8;
+    swC = r[18];
+    swC += r[19] << 8;
+    swD = r[20];
+    swD += r[21] << 8;
+
+    potA = r[22];
+    potA += r[23] << 8;
+    potB = r[24];
+    potB += r[25] << 8;
+    return 1;
+}
+
 void user_data()
 {
-    while(!PIR3bits.TXIF){}
-    TXREG = 0xFE;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x19;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x01;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x05;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x00;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x00;
-    
-    while(!PIR3bits.RCIF){}
-    joy_rx = RCREG;
-    while(!PIR3bits.RCIF){}
-    joy_rx = RCREG;
-    while(!PIR3bits.RCIF){}
-    joy_rx = RCREG;
-    while(!PIR3bits.RCIF){}
-    joy_rx = RCREG;
-    while(!PIR3bits.RCIF){}
-    joy_rx = RCREG;
-    while(!PIR3bits.RCIF){}
-    joy_rx = RCREG;
-    
-    while(!PIR3bits.RCIF){}
-    joy_rx = RCREG;
-    while(!PIR3bits.RCIF){}
-    joy_rx += RCREG << 8;
-    while(!PIR3bits.RCIF){}
-    joy_ry = RCREG;
-    while(!PIR3bits.RCIF){}
-    joy_ry += RCREG << 8;
-    while(!PIR3bits.RCIF){}
-    
-    joy_ly = RCREG;
-    while(!PIR3bits.RCIF){}
-    joy_ly += RCREG << 8;
-    while(!PIR3bits.RCIF){}
-    joy_lx = RCREG;
-    while(!PIR3bits.RCIF){}
-    joy_lx += RCREG << 8;
-    
-    while(!PIR3bits.RCIF){}
-    swA = RCREG;
-    while(!PIR3bits.RCIF){}
-    swA += RCREG << 8;
-    while(!PIR3bits.RCIF){}
-    swB = RCREG;
-    while(!PIR3bits.RCIF){}
-    swB += RCREG << 8;
-    while(!PIR3bits.RCIF){}
-    swC = RCREG;
-    while(!PIR3bits.RCIF){}
-    swC += RCREG << 8;
-    while(!PIR3bits.RCIF){}
-    swD = RCREG;
-    while(!PIR3bits.RCIF){}
-    swD += RCREG << 8;
-    
-    while(!PIR3bits.RCIF){}
-    potA = RCREG;
-    while(!PIR3bits.RCIF){}
-    potA += RCREG << 8;
-    while(!PIR3bits.RCIF){}
-    potB = RCREG;
-    while(!PIR3bits.RCIF){}
-    potB += RCREG << 8;
+    user_data_send();
+    while(!user_data_receive())
+    {
+        user_data_send();
+    }
 }
+
 
 void motor(unsigned char dirA, unsigned char pwmA, unsigned char dirB, unsigned char pwmB)
 {
-    while(!PIR3bits.TXIF){}
-    TXREG = 0xFE;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x19;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x01;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x06;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x04;
-    while(!PIR3bits.TXIF){}
-    TXREG = 0x00;
-    
-    while(!PIR3bits.TXIF){}
-    TXREG = dirA;
-    while(!PIR3bits.TXIF){}
-    TXREG = pwmA;
-    while(!PIR3bits.TXIF){}
-    TXREG = dirB;
-    while(!PIR3bits.TXIF){}
-    TXREG = pwmB;
+    while (!UART_send((volatile unsigned char []) {0xFE, 0x19, 0x01, 0x06, 0x04, 0x00, dirA, pwmA, dirB, pwmB}, 10)){}
 }
 
 void main(void) {
     UART_init();
-    
     PCLS_info();
+    while(1)
+    {
+        user_data();
+        motor(1, joy_ly, 1, 1);
+    }
     return;
 }
