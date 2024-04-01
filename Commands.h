@@ -248,6 +248,39 @@ void ore_type(unsigned char type)
     while(!UART_send((volatile unsigned char []){0xFE, 0x19, 0x03, 0x0A, 0x01, 0x00, type}, 7)){}
 }
 
+void Vdrive(int y, int x)
+{
+    volatile int l_motor, r_motor;
+    l_motor = y + x;
+    r_motor = y - x;
+    
+    if (l_motor > 100 | l_motor < -100)
+    {
+        l_motor = (l_motor/abs(l_motor)) * 100;
+    }
+    if (r_motor > 100 | r_motor < -100)
+    {
+        r_motor = (r_motor/abs(r_motor)) * 100;
+    }
+    motor(l_motor/abs(l_motor), abs(l_motor), r_motor/abs(r_motor), abs(r_motor));
+}
+
+void drive()
+{
+    char dir;
+    int x, y;
+    
+    user_data();
+    
+    if(joy_ry > 1250){dir = 1;}
+    else{dir = -1;}
+    
+    x = (joy_rx - 1500)/10;
+    y = dir * (joy_ly - 1000)/10;
+    
+    Vdrive(y, x);
+}
+
 
 //void main(void) {
 //    UART_init();
@@ -259,3 +292,5 @@ void ore_type(unsigned char type)
 //    }
 //    return;
 //}
+
+
