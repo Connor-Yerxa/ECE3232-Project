@@ -9,11 +9,9 @@
 
 void shield_code(void) { //shield code function
 	PCLS_info();
-    __delay_ms(50);
     shield_flag = 1;
 	if(shield_flag){ //non zero if shot
 		user_data();
-		__delay_ms(50);
 		if(swA){//switches
             set_laser(1);
             __delay_ms(100);

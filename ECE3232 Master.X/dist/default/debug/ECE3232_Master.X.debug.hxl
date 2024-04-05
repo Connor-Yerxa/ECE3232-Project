@@ -1,32 +1,53 @@
 ### HEXMate logfile and output summary ###
 
 ### Command-line arguments ###
- C:\Users\cbyer\AppData\Local\Temp\xcAsbio.\driver_tmp_3.o
+ dist/default/debug\ECE3232_Master.X.debug.hex
  -Odist/default/debug\ECE3232_Master.X.debug.hex
  -logfile=dist/default/debug\ECE3232_Master.X.debug.hxl
  -addressing=2
 
 ### Memory Usage ###
- Input file ranges:
-  0h - 7h		(C:\Users\cbyer\AppData\Local\Temp\xcAsbio.\driver_tmp_3.o)
-  1AAh - FFFh		(C:\Users\cbyer\AppData\Local\Temp\xcAsbio.\driver_tmp_3.o)
-  1000Eh - 1000Fh		(C:\Users\cbyer\AppData\Local\Temp\xcAsbio.\driver_tmp_3.o)
-  10012h - 10013h		(C:\Users\cbyer\AppData\Local\Temp\xcAsbio.\driver_tmp_3.o)
+ Intel Hex-file ranges:
+  0h - 9h		(dist/default/debug\ECE3232_Master.X.debug.hex)
+  52h - FFFh		(dist/default/debug\ECE3232_Master.X.debug.hex)
+  1000Eh - 1000Fh		(dist/default/debug\ECE3232_Master.X.debug.hex)
+  10012h - 10013h		(dist/default/debug\ECE3232_Master.X.debug.hex)
  Unused ranges:
-  8h - 1A9h
+  Ah - 51h
   1000h - 1000Dh
   10010h - 10011h
 
 ### Hex Memory Map ###
  Legend:
   -- = Unused memory
-  H1 = Input file             (C:\Users\cbyer\AppData\Local\Temp\xcAsbio.\driver_tmp_3.o)
+  H1 = Intel Hex-file         (dist/default/debug\ECE3232_Master.X.debug.hex)
 ----------------------------------------------------------
          | 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 ----------------------------------------------------------
-00000000 | H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- -- -- -- -- --
+00000000 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- -- -- --
 ----------------------------------------------------------
-000001A0 | -- -- -- -- -- -- -- -- -- -- H1 H1 H1 H1 H1 H1
+00000050 | -- -- H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000060 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000070 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000080 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000090 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000000A0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000000B0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000000C0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000000D0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000000E0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000000F0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000100 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000110 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000120 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000130 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000140 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000150 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000160 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000170 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000180 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000190 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000001A0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 000001B0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 000001C0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 000001D0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1

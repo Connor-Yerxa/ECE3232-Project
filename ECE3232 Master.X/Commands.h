@@ -80,6 +80,15 @@ void UART_init()
     ANSELCbits.ANSC6 = 0;           //Set Tx to Digital
     ANSELCbits.ANSC7 = 0;           //Set Rx to Digital
     
+
+
+
+
+
+
+
+
+
     TX1STAbits.SYNC = 0;            //Set EUSART to asyncronous
     TX1STAbits.TXEN = 1;            //Transmit enabled
     RC1STAbits.SPEN = 1;            //Serial port enabled

@@ -37,6 +37,6 @@ void IR()
         LATAbits.LATA1 = 0;
         LATAbits.LATA2 = 0;
         LATAbits.LATA3 = 0;
-        __delay_ms(50);
+        __delay_ms(3000);
     }
 }

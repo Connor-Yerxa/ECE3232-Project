@@ -23,6 +23,15 @@
 
 #define _XTAL_FREQ 400000
 
+volatile unsigned char serA;
+
+void claw()
+{
+    user_data();
+    
+    servo(0, 0, 0, potA);
+}
+
 
 
 void main(void) {
@@ -49,9 +58,15 @@ void main(void) {
     
     shield_code();
     
-    user_data();
-    
+//    if(swC == 1)
+//    {
+//        user_data();
+//        serA = (potA-1000)/10;
+//        serA = serA * 2.5;
+//        __delay_ms(3000);
+//        servo(0,0,0,0);
+//        __delay_ms(3000);
+//    }
     drive();
-    
     return;
 }
