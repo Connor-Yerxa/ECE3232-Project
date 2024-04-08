@@ -9,17 +9,19 @@
 
 void shield_code(void) { //shield code function
 	PCLS_info();
-    shield_flag = 1;
+   shield_flag = 1;
 	if(shield_flag){ //non zero if shot
 		user_data();
 		if(swA){//switches
             set_laser(1);
-            __delay_ms(100);
-            shoot_laser(1);
-			transmit_shield_code();
-            __delay_ms(100);
+            __delay_ms(6000);
             set_laser(0);
             __delay_ms(6000);
+            //shoot_laser(1);
+			transmit_shield_code();
+            __delay_ms(100);
+            __delay_ms(6000);
+            set_laser(0);
 		}
 	}
 }

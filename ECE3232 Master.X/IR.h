@@ -40,3 +40,21 @@ void IR()
         __delay_ms(3000);
     }
 }
+void IR_zone(){
+    user_data();
+    volatile unsigned char zone = 100/6;
+    volatile unsigned char i;
+    for(i=1;i<7;i++){
+        if(potA< zone*i){
+            set_laser(1);
+            __delay_ms(6000);
+            set_laser(0);
+            __delay_ms(6000);
+            surface_exploration(5,0,i,0);
+            __delay_ms(6000);
+            set_laser(0);
+            __delay_ms(6000);
+            return;
+    }
+    }
+}

@@ -116,6 +116,12 @@ void line_follower()
         r_vec = 100 - r_vec;
     }
     
+    if(l_val && r_val && m_val)
+    {
+        l_vec = 50;
+        r_vec = 50; 
+    }
+    
     if(l_vec > 200){l_vec = 200;}
     if(r_vec > 200){r_vec = 200;}
     motor(l_dir, abs(l_vec), r_dir, abs(r_vec));

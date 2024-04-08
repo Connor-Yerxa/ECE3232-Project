@@ -23,7 +23,7 @@
 #pragma config FCMEN = ON 
 
 #define _XTAL_FREQ 400000
-
+volatile unsigned char edge;
 volatile unsigned char serA;
 
 void servos()
@@ -75,8 +75,8 @@ void servos()
         j=1;
     }}
     
-    if(i && j){LATAbits.LATA7=1;}
-    else{LATAbits.LATA7=0;}
+    if(i && j){LATAbits.LATA7=0;}
+    else{LATAbits.LATA7=1;}
 }
 
 void claw()
@@ -90,8 +90,10 @@ void claw()
 
 void main(void) {
     UART_init();
-    user_data();
     ADC_init();
+    user_data();
+    while(1){
+    user_data();
     
     if(swB)
     {
@@ -102,15 +104,46 @@ void main(void) {
             user_data();
         }
     }
-    
-    while(swC == 2)
+        if(!swD){
+        user_data();
+        drive();
+        if(swA ==1 && swC ==0){
+            set_laser(1);
+            __delay_ms(6000);
+            set_laser(0);
+            __delay_ms(6000);
+            ore_type(1);
+            __delay_ms(6000);
+            set_laser(0);
+        }
+        else {if(swA==1 && swC==1){
+            ore_type(2);
+             __delay_ms(6000);
+             edge =3;
+        }
+        }
+    }
+    if(swC==1 &&swD){
+        shield_code();
+    }
+   while(swC == 2)
     {
         IR_init();
         drive();
-        while(swD) {IR(); user_data();}
+        if(swA&& !swD){
+            ore_type(3);
+            __delay_ms(6000);
+        }
+       
+        while(swD) {IR(); user_data();
+        if(swA){
+            IR_zone();
+            __delay_ms(6000);
+        }
+        }
     }
-    
-    shield_code();
+
+    //shield_code();
     
 //    if(swC == 1)
 //    {
@@ -125,5 +158,5 @@ void main(void) {
     servos();
     
     drive();
-    return;
+}
 }
