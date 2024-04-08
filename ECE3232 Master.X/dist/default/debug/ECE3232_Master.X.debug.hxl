@@ -1,32 +1,35 @@
 ### HEXMate logfile and output summary ###
 
 ### Command-line arguments ###
- dist/default/debug\ECE3232_Master.X.debug.hex
+ C:\Users\cbyer\AppData\Local\Temp\xcAsirg.\driver_tmp_3.o
  -Odist/default/debug\ECE3232_Master.X.debug.hex
  -logfile=dist/default/debug\ECE3232_Master.X.debug.hxl
  -addressing=2
 
 ### Memory Usage ###
- Intel Hex-file ranges:
-  0h - 9h		(dist/default/debug\ECE3232_Master.X.debug.hex)
-  52h - FFFh		(dist/default/debug\ECE3232_Master.X.debug.hex)
-  1000Eh - 1000Fh		(dist/default/debug\ECE3232_Master.X.debug.hex)
-  10012h - 10013h		(dist/default/debug\ECE3232_Master.X.debug.hex)
+ Input file ranges:
+  0h - FFFh		(C:\Users\cbyer\AppData\Local\Temp\xcAsirg.\driver_tmp_3.o)
+  1F70h - 1FFFh		(C:\Users\cbyer\AppData\Local\Temp\xcAsirg.\driver_tmp_3.o)
+  1000Eh - 1000Fh		(C:\Users\cbyer\AppData\Local\Temp\xcAsirg.\driver_tmp_3.o)
+  10012h - 10013h		(C:\Users\cbyer\AppData\Local\Temp\xcAsirg.\driver_tmp_3.o)
  Unused ranges:
-  Ah - 51h
-  1000h - 1000Dh
+  1000h - 1F6Fh
+  2000h - 1000Dh
   10010h - 10011h
 
 ### Hex Memory Map ###
  Legend:
   -- = Unused memory
-  H1 = Intel Hex-file         (dist/default/debug\ECE3232_Master.X.debug.hex)
+  H1 = Input file             (C:\Users\cbyer\AppData\Local\Temp\xcAsirg.\driver_tmp_3.o)
 ----------------------------------------------------------
          | 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 ----------------------------------------------------------
-00000000 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- -- -- --
-----------------------------------------------------------
-00000050 | -- -- H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000000 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000010 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000020 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000030 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000040 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000050 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00000060 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00000070 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00000080 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
@@ -277,6 +280,16 @@
 00000FD0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00000FE0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00000FF0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+----------------------------------------------------------
+00001F70 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00001F80 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00001F90 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00001FA0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00001FB0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00001FC0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00001FD0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00001FE0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00001FF0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 ----------------------------------------------------------
 00010000 | -- -- -- -- -- -- -- -- -- -- -- -- -- -- H1 H1
 00010010 | -- -- H1 H1 -- -- -- -- -- -- -- -- -- -- -- --

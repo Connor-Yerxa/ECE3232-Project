@@ -7,6 +7,7 @@
 
 
 #include <xc.h>
+#include <pic16f18855.h>
 #include "Commands.h"
 #include "Driving.h"
 #include "Line Follower.h"
@@ -24,6 +25,59 @@
 #define _XTAL_FREQ 400000
 
 volatile unsigned char serA;
+
+void servos()
+{
+    int i, j;
+    TRISCbits.TRISC3 = 0;     //Claw Move
+    TRISCbits.TRISC4 = 0;     //Claw Direction
+    
+    TRISCbits.TRISC5 = 0;     //Arm Move
+    TRISCbits.TRISC0 = 0;     //Arm Direction
+    
+    TRISAbits.TRISA7 = 0;     //Arduino reset
+    
+    user_data();
+    
+    if(potA < 25)
+    {
+        LATCbits.LATC3 = 1;
+        LATCbits.LATC4 = 0;
+        i=0;
+    }
+    else {if(potA > 75)
+    {
+        LATCbits.LATC3 = 1;
+        LATCbits.LATC4 = 1;
+        i=0;
+    }
+    else
+    {
+        LATCbits.LATC3 = 0;
+        i=1;
+    }}
+    
+    if(potB < 25)
+    {
+        LATCbits.LATC5 = 1;
+        LATCbits.LATC0 = 0;
+        j=0;
+    }
+    else {if(potB > 75)
+    {
+        LATCbits.LATC5 = 1;
+        LATCbits.LATC0 = 1;
+        j=0;
+    }
+    else
+    {
+        LATCbits.LATC5 = 0;
+        j=1;
+    }}
+    
+    if(i && j){LATAbits.LATA7=1;}
+    else{LATAbits.LATA7=0;}
+}
 
 void claw()
 {
@@ -67,6 +121,9 @@ void main(void) {
 //        servo(0,0,0,0);
 //        __delay_ms(3000);
 //    }
+    
+    servos();
+    
     drive();
     return;
 }

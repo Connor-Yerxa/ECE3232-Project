@@ -79,15 +79,6 @@ void UART_init()
 {
     ANSELCbits.ANSC6 = 0;           //Set Tx to Digital
     ANSELCbits.ANSC7 = 0;           //Set Rx to Digital
-    
-
-
-
-
-
-
-
-
 
     TX1STAbits.SYNC = 0;            //Set EUSART to asyncronous
     TX1STAbits.TXEN = 1;            //Transmit enabled
@@ -199,8 +190,10 @@ volatile unsigned char user_data_receive()
 
     potA = r[22];
     potA += r[23] << 8;
+    potA = (potA - 1000)/10;
     potB = r[24];
     potB += r[25] << 8;
+    potB = (potB - 1000)/10;
     return 1;
 }
 
@@ -246,7 +239,7 @@ void request_repair()
 
 void transmit_repair()
 {
-    while(!UART_send((volatile unsigned char []){0xFE, 0x19, 0x01, 0x09, 0x01, 0x00}, 7)){}
+    while(!UART_send((volatile unsigned char []){0xFE, 0x19, 0x01, 0x09, 0x00, 0x00}, 6)){}
 }
 
 void custom_laser(unsigned char size_lower, unsigned char size_upper, volatile unsigned char message[])
